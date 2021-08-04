@@ -2,7 +2,6 @@ using BenchmarkDotNet.Attributes;
 
 namespace IsQualifiedName
 {
-
     [MemoryDiagnoser]
     public class Benchmarks
     {

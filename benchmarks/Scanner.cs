@@ -2,7 +2,6 @@ using System;
 
 namespace IsQualifiedName
 {
-
     internal enum Token { Ident, Period, Whitespace, Other };
 
 
@@ -33,7 +32,7 @@ namespace IsQualifiedName
                         token = Token.Whitespace;
                         goto Start; // whitespace gets skipped
                     }
-                    
+
                 // TODO: add uppercase letters
                 case 'a':
                 case 'b':

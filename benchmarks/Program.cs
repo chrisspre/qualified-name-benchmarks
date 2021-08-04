@@ -5,6 +5,7 @@ using BenchmarkDotNet.Running;
 
 namespace IsQualifiedName
 {
+
     class Program
     {
         static void Main(string[] args)
