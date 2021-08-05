@@ -10,12 +10,7 @@ namespace IsQualifiedName
     {
         static void Main(string[] args)
         {
-            // foreach (var test in new[] { "aaaa.bbbb", "aaaa.", ".aaaa", "a. b1bbb", "a. .b" })
-            // {
-            //     Console.WriteLine("{0} {1}", test, IsQualifiedName(test));
-            // }
-
-            var summary = BenchmarkRunner.Run(typeof(Program).Assembly);
+            BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args);
         }
 
         internal static bool IsQualifiedName2(string name)
@@ -48,7 +43,7 @@ namespace IsQualifiedName
 
         internal static bool IsQualifiedNameScanner(string name)
         {
-            ReadOnlySpan<char> current = name;
+            ReadOnlySpan<char> current = name.AsSpan();
 
             // starts with an identifier
             if (!(current.Next(out var token) && token == Token.Ident))
