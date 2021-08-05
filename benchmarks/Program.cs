@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BenchmarkDotNet.Running;
 
 
@@ -44,6 +45,31 @@ namespace IsQualifiedName
 
             return hasDot ^ allWhitespace;
         }
+
+        internal static bool IsQualifiedNameSplit(string name)
+        {
+            string[] nameTokens = name.Split('.');
+            if (nameTokens.Length < 2)
+            {
+                return false;
+            }
+
+            foreach (string token in nameTokens)
+            {
+                if (IsNullOrWhiteSpaceInternal(token))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        internal static bool IsNullOrWhiteSpaceInternal(String value)
+        {
+            return value == null || value.ToCharArray().All(Char.IsWhiteSpace);
+        }
+
 
 
         internal static bool IsQualifiedNameScanner(string name)

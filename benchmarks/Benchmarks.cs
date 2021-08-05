@@ -19,6 +19,17 @@ namespace IsQualifiedName
         }
 
         [Benchmark]
+        public int IsQualifiedNameSplit()
+        {
+            for (int i = 0; i < tests.Length; i++)
+            {
+                Program.IsQualifiedNameSplit(tests[i]);
+            }
+            return 0;
+        }
+
+
+        [Benchmark]
         public int IsQualifiedName_WithScanner()
         {
             for (int i = 0; i < tests.Length; i++)
