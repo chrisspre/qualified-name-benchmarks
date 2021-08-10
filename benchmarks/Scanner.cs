@@ -9,31 +9,22 @@ namespace IsQualifiedName
     {
         public static bool Next(this ref ReadOnlySpan<char> current, out Token token)
         {
-        Start:
+            // skip all whitespace
+            int i = 0;
+            for (; i < current.Length && char.IsWhiteSpace(current[i]); i++)
+            {
+            };
+            current = current.Slice(i);
+
+            // return if empty
             if (current.IsEmpty)
             {
                 token = default;
                 return false;
             }
 
-            var ch = current[0];
-            switch (ch)
+            switch (current[0])
             {
-                case ' ':
-                case '\t':
-                case '\r':
-                case '\n':
-                    {
-                        int i = 0;
-                        for (; i < current.Length && char.IsWhiteSpace(current[i]); i++)
-                        {
-                        };
-                        current = current.Slice(i);
-                        token = Token.Whitespace;
-                        goto Start; // whitespace gets skipped
-                    }
-
-                // TODO: add uppercase letters
                 case 'a':
                 case 'b':
                 case 'c':
@@ -88,7 +79,7 @@ namespace IsQualifiedName
                 case 'Z':
                 case '_':
                     {
-                        int i = 0;
+                        i = 1;
                         for (; i < current.Length && (char.IsLetterOrDigit(current[i]) || current[i] == '_'); i++)
                         {
                         };
@@ -98,14 +89,18 @@ namespace IsQualifiedName
                     }
 
                 case '.':
-                    current = current.Slice(1);
-                    token = Token.Period;
-                    return true;
+                    {
+                        current = current.Slice(1);
+                        token = Token.Period;
+                        return true;
+                    }
 
                 default:
-                    current = current.Slice(1);
-                    token = Token.Other;
-                    return true;
+                    {
+                        current = current.Slice(1);
+                        token = Token.Other;
+                        return true;
+                    }
             }
         }
     }

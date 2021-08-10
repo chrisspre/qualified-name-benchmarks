@@ -82,8 +82,8 @@ namespace IsQualifiedName
                 return false;
             }
 
-            // a sequence of 0 or more ...
-            while (!current.IsEmpty)
+            // a sequence of 1 or more  '.' <ident>
+            do
             {
                 // expect a period
                 if (!(current.Next(out token) && token == Token.Period))
@@ -96,7 +96,7 @@ namespace IsQualifiedName
                 {
                     return false;
                 }
-            }
+            } while (!current.IsEmpty);
             return true;
         }
     }

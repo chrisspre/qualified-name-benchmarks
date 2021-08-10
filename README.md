@@ -5,11 +5,9 @@ small c# project to micro-benchmark a small method to check for valid strings.
 
 results from 2021-08-05
 
-```
 
 |                      Method |      Mean |     Error |    StdDev |  Gen 0 | Gen 1 | Gen 2 | Allocated |
 |---------------------------- |----------:|----------:|----------:|-------:|------:|------:|----------:|
-|            IsQualifiedName2 |  63.17 ns |  0.299 ns |  0.249 ns |      - |     - |     - |         - |
-|        IsQualifiedNameSplit | 839.96 ns | 15.444 ns | 17.786 ns | 0.0868 |     - |     - |   1,504 B |
-| IsQualifiedName_WithScanner | 158.76 ns |  2.543 ns |  2.254 ns |      - |     - |     - |         - |
-```
+|            IsQualifiedName2 |  58.54 ns |  1.127 ns |  1.298 ns |      - |     - |     - |         - |
+|        IsQualifiedNameSplit | 836.87 ns | 16.752 ns | 38.153 ns | 0.3595 |     - |     - |   1,504 B |
+| IsQualifiedName_WithScanner | 190.27 ns |  3.482 ns |  2.718 ns |      - |     - |     - |         - |
