@@ -5,15 +5,14 @@ namespace IsQualifiedName
     [MemoryDiagnoser]
     public class Benchmarks
     {
-        private static string[] tests = new[] { "aaaa.bbbb", "aaaa.", ".aaaa", "a. b1bbb", "a. .b" };
-
+        private static string[] tests = new[] { "aaaa.bbbb", "aaaa.", ".aaaa", "a. b1bbb", "a. .b", "a.b.c.d.e.f" };
 
         [Benchmark]
         public int IsQualifiedName2()
         {
             for (int i = 0; i < tests.Length; i++)
             {
-                Program.IsQualifiedName2(tests[i]);
+                Validator.IsQualifiedName2(tests[i]);
             }
             return 0;
         }
@@ -23,7 +22,7 @@ namespace IsQualifiedName
         {
             for (int i = 0; i < tests.Length; i++)
             {
-                Program.IsQualifiedNameSplit(tests[i]);
+                Validator.IsQualifiedNameSplit(tests[i]);
             }
             return 0;
         }
@@ -34,7 +33,7 @@ namespace IsQualifiedName
         {
             for (int i = 0; i < tests.Length; i++)
             {
-                Program.IsQualifiedNameScanner(tests[i]);
+                Validator.IsQualifiedNameScanner(tests[i]);
             }
             return 0;
         }
@@ -44,7 +43,7 @@ namespace IsQualifiedName
         {
             for (int i = 0; i < tests.Length; i++)
             {
-                Program.IsQualifiedNameScanner2(tests[i]);
+                Validator.IsQualifiedNameCustomScanner(tests[i]);
             }
             return 0;
         }

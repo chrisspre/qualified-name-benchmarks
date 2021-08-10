@@ -178,6 +178,7 @@ namespace IsQualifiedName
                 case 'Z':
                 case '_':
                     {
+                        span = span.Slice(1);
                         while (span.TryGetFirst(out ch) && (char.IsLetterOrDigit(ch) || ch == '_'))
                         {
                             span = span.Slice(1);
@@ -206,35 +207,55 @@ namespace IsQualifiedName
 
     ref struct TextSpan
     {
-        public TextSpan(string text) { Text = text; Index = 0; }
-        private TextSpan(string text, int index) { Text = text; Index = index; }
-        public string Text;
-        public int Index;
+        public TextSpan(string text)
+        {
+            unsafe
+            {
+                fixed (char* p = text)
+                {
+                    current = p;
+                    end = p + text.Length;
+                }
+            }
+        }
+
+        private unsafe TextSpan(char* c, char* e)
+        {
+            current = c;
+            end = e;
+        }
+
+        unsafe char* current;
+
+        unsafe char* end;
 
         public bool IsEmpty
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => Index >= Text.Length;
+            get { unsafe { return current >= end; } }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public TextSpan Slice(int n)
         {
-            return new TextSpan(Text, Index + n);
+            unsafe { return new TextSpan(current + n, end); }
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public bool TryGetFirst(out char ch)
         {
-            if (Index < Text.Length)
+            unsafe
             {
-                ch = Text[Index];
-                return true;
-            }
-            else
-            {
-                ch = default;
-                return false;
+                if (current < end)
+                {
+                    ch = *current;
+                    return true;
+                }
+                else
+                {
+                    ch = default;
+                    return false;
+                }
             }
         }
     }
