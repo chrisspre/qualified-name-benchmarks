@@ -38,5 +38,15 @@ namespace IsQualifiedName
             }
             return 0;
         }
+
+        [Benchmark]
+        public int IsQualifiedName_WithScanner2()
+        {
+            for (int i = 0; i < tests.Length; i++)
+            {
+                Program.IsQualifiedNameScanner2(tests[i]);
+            }
+            return 0;
+        }
     }
 }

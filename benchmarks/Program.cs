@@ -99,5 +99,33 @@ namespace IsQualifiedName
             } while (!current.IsEmpty);
             return true;
         }
+
+        internal static bool IsQualifiedNameScanner2(string name)
+        {
+            var span = new TextSpan(name);
+
+            // starts with an identifier
+            if (!(span.Next(out var token) && token == Token.Ident))
+            {
+                return false;
+            }
+
+            // a sequence of 1 or more  '.' <ident>
+            do
+            {
+                // expect a period
+                if (!(span.Next(out token) && token == Token.Period))
+                {
+                    return false;
+                }
+
+                // followed by an identifier
+                if (!(span.Next(out token) && token == Token.Ident))
+                {
+                    return false;
+                }
+            } while (!span.IsEmpty);
+            return true;
+        }
     }
 }
