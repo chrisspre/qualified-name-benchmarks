@@ -13,7 +13,17 @@ namespace IsQualifiedName
         {
             for (int i = 0; i < tests.Length; i++)
             {
-                Program.IsQualifiedName2(tests[i]);
+                Validator.IsQualifiedName2(tests[i]);
+            }
+            return 0;
+        }
+
+        [Benchmark]
+        public int IsQualifiedName3()
+        {
+            for (int i = 0; i < tests.Length; i++)
+            {
+                Validator.IsQualifiedName3(tests[i]);
             }
             return 0;
         }
@@ -23,7 +33,7 @@ namespace IsQualifiedName
         {
             for (int i = 0; i < tests.Length; i++)
             {
-                Program.IsQualifiedNameSplit(tests[i]);
+                Validator.IsQualifiedNameSplit(tests[i]);
             }
             return 0;
         }
@@ -34,7 +44,7 @@ namespace IsQualifiedName
         {
             for (int i = 0; i < tests.Length; i++)
             {
-                Program.IsQualifiedNameScanner(tests[i]);
+                Validator.IsQualifiedNameScanner(tests[i]);
             }
             return 0;
         }
