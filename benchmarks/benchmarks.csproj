@@ -9,5 +9,9 @@
     <PackageReference Include="benchmarkdotnet" Version="0.13.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\validator\validator.csproj" />
+  </ItemGroup>
+
 </Project>
   
